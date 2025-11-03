@@ -13,5 +13,66 @@
   "home": {
     "title": "Bienvenue sur la Plateforme POSOC",
     "subtitle": "Renforcer la société civile ensemble"
+  },
+  "docs": {
+    "title": "Titre",
+    "category": "Catégorie",
+    "date": "Date",
+    "action": "Action",
+    "download": "Télécharger",
+    "upload": "Uploader un document",
+    "categories": {
+      "statuts": "Statuts",
+      "rapports": "Rapports",
+      "pv": "Procès-verbaux",
+      "etudes": "Études",
+      "autres": "Autres"
+    }
+  },
+  "news": {
+    "title": "Titre",
+    "content": "Contenu",
+    "category": "Catégorie",
+    "date": "Date",
+    "images": "Images",
+    "categories": {
+      "actualite": "Actualité",
+      "evenement": "Événement",
+      "communique": "Communiqué"
+    },
+    "add": "Nouvelle actualité",
+    "edit": "Modifier l’actualité"
+  },
+  "members": {
+    "search": "Rechercher par nom, domaine ou localisation",
+    "filterDomain": "Filtrer par domaine",
+    "add": "Ajouter mon association"
+  },
+  "contact": {
+    "name": "Nom",
+    "email": "Email",
+    "message": "Message",
+    "send": "Envoyer",
+    "sent": "Votre message a été envoyé avec succès !"
+  },
+  "auth": {
+    "email": "Email",
+    "password": "Mot de passe",
+    "confirmPassword": "Confirmer le mot de passe",
+    "name": "Nom de l’association",
+    "domain": "Domaine d’intervention",
+    "location": "Localisation",
+    "phone": "Téléphone",
+    "address": "Adresse",
+    "logo": "Logo (image)",
+    "registerBtn": "S’inscrire",
+    "loginBtn": "Se connecter"
+  },
+  "admin": {
+    "editAbout": "Modifier \"À propos\"",
+    "manageMembers": "Gérer les membres",
+    "manageNews": "Gérer les actualités",
+    "manageDocuments": "Gérer les documents",
+    "manageMessages": "Gérer les messages"
   }
 }

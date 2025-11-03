@@ -1,4 +1,4 @@
-// src/pages/Documents.jsx
+// frontend/src/pages/Documents.jsx
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import API from '../services/api';
@@ -24,11 +24,11 @@ export default function Documents() {
 
   const getCategoryLabel = (cat) => {
     const labels = {
-      statuts: 'Statuts',
-      rapports: 'Rapports',
-      pv: 'Procès-verbaux',
-      etudes: 'Études',
-      autres: 'Autres'
+      statuts: t('docs.categories.statuts'),
+      rapports: t('docs.categories.rapports'),
+      pv: t('docs.categories.pv'),
+      etudes: t('docs.categories.etudes'),
+      autres: t('docs.categories.autres')
     };
     return labels[cat] || cat;
   };
@@ -44,10 +44,10 @@ export default function Documents() {
           <table className="table table-hover">
             <thead>
               <tr>
-                <th>Titre</th>
-                <th>Catégorie</th>
-                <th>Date</th>
-                <th>Action</th>
+                <th>{t('docs.title')}</th>
+                <th>{t('docs.category')}</th>
+                <th>{t('docs.date')}</th>
+                <th>{t('docs.action')}</th>
               </tr>
             </thead>
             <tbody>
@@ -58,7 +58,7 @@ export default function Documents() {
                   <td>{new Date(doc.uploadedAt).toLocaleDateString()}</td>
                   <td>
                     <a href={doc.fileUrl} target="_blank" rel="noreferrer" className="btn btn-sm btn-outline-primary">
-                      Télécharger
+                      {t('docs.download')}
                     </a>
                   </td>
                 </tr>
@@ -66,10 +66,6 @@ export default function Documents() {
             </tbody>
           </table>
         </div>
-      )}
-
-      {documents.length === 0 && !loading && (
-        <p>Aucun document disponible.</p>
       )}
     </div>
   );

@@ -13,5 +13,66 @@
   "home": {
     "title": "مرحباً بكم في منصة بوصوك",
     "subtitle": "تعزيز المجتمع المدني معاً"
+  },
+  "docs": {
+    "title": "العنوان",
+    "category": "الفئة",
+    "date": "التاريخ",
+    "action": "الإجراء",
+    "download": "تنزيل",
+    "upload": "رفع وثيقة",
+    "categories": {
+      "statuts": "النظام الأساسي",
+      "rapports": "التقارير",
+      "pv": "محاضر الاجتماعات",
+      "etudes": "الدراسات",
+      "autres": "أخرى"
+    }
+  },
+  "news": {
+    "title": "العنوان",
+    "content": "المحتوى",
+    "category": "الفئة",
+    "date": "التاريخ",
+    "images": "الصور",
+    "categories": {
+      "actualite": "خبر",
+      "evenement": "فعالية",
+      "communique": "بلاغ"
+    },
+    "add": "خبر جديد",
+    "edit": "تعديل الخبر"
+  },
+  "members": {
+    "search": "البحث حسب الاسم أو المجال أو الموقع",
+    "filterDomain": "تصفية حسب المجال",
+    "add": "إضافة جمعيتي"
+  },
+  "contact": {
+    "name": "الاسم",
+    "email": "البريد الإلكتروني",
+    "message": "الرسالة",
+    "send": "إرسال",
+    "sent": "لقد تم إرسال رسالتك بنجاح!"
+  },
+  "auth": {
+    "email": "البريد الإلكتروني",
+    "password": "كلمة المرور",
+    "confirmPassword": "تأكيد كلمة المرور",
+    "name": "اسم الجمعية",
+    "domain": "مجال التدخل",
+    "location": "الموقع",
+    "phone": "الهاتف",
+    "address": "العنوان",
+    "logo": "الشعار (صورة)",
+    "registerBtn": "تسجيل",
+    "loginBtn": "دخول"
+  },
+  "admin": {
+    "editAbout": "تعديل \"من نحن\"",
+    "manageMembers": "إدارة الأعضاء",
+    "manageNews": "إدارة الأخبار",
+    "manageDocuments": "إدارة الوثائق",
+    "manageMessages": "إدارة الرسائل"
   }
 }

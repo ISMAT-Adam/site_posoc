@@ -19,6 +19,7 @@ const documentRoutes = require('./routes/documents');
 const contactRoutes = require('./routes/contact');
 const aboutRoutes = require('./routes/about');
 
+
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -37,6 +38,7 @@ app.use('/api/news', newsRoutes);
 app.use('/api/documents', documentRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/about', aboutRoutes);
+
 
 // Démarrage
 connectDB().then(() => {

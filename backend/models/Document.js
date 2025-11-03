@@ -12,4 +12,4 @@ const DocumentSchema = new mongoose.Schema({
   uploadedAt: { type: Date, default: Date.now }
 }, { timestamps: true });
 
-module.exports = mongoose.model('Document', DocumentSchema);
+module.exports = mongoose.model('Document', DocumentSchema);                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              
