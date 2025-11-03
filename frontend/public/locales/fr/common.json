@@ -1,0 +1,17 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "members": "Membres",
+    "news": "Actualités & Événements",
+    "documents": "Espace Documentaire",
+    "contact": "Contact",
+    "login": "Connexion",
+    "register": "Inscription",
+    "dashboard": "Tableau de bord"
+  },
+  "home": {
+    "title": "Bienvenue sur la Plateforme POSOC",
+    "subtitle": "Renforcer la société civile ensemble"
+  }
+}
