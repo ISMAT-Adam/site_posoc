@@ -22,6 +22,8 @@ import AdminDocumentsList from './pages/AdminDocumentsList';
 import AdminMembersList from './pages/AdminMembersList';
 import AdminMessages from './pages/AdminMessages';
 import AdminNewsList from './pages/AdminNewsList';
+import NewsDetail from './pages/NewsDetail';
+
 function App() {
   return (
     <Router>
@@ -47,6 +49,7 @@ function App() {
             <Route path="/admin/members" element={<AdminMembersList />} />
             <Route path="/admin/messages" element={<AdminMessages />} />
             <Route path="/admin/news" element={<AdminNewsList />} />
+            <Route path="/actualites/:id" element={<NewsDetail />} />
           </Routes>
         </main>
         <Footer />

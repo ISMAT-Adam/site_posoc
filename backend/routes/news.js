@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const {
   getAllNews,
+  getNewsById,      // ← doit être importé
   createNews,
   updateNews,
   deleteNews,
@@ -13,8 +14,9 @@ const auth = require('../middleware/auth');
 const admin = require('../middleware/admin');
 const uploadNewsImages = require('../middleware/uploadNewsImages');
 
-// Route publique
+// Routes
 router.get('/', getAllNews);
+router.get('/:id', getNewsById); // ← CETTE LIGNE EST OBLIGATOIRE
 
 // Routes admin
 router.post('/', auth, admin, uploadNewsImages, createNews);

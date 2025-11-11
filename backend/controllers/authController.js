@@ -4,12 +4,18 @@ const Member = require('../models/Member');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 
+// backend/controllers/authController.js
 exports.register = async (req, res) => {
   const { email, password, name, domain, location, phone, address } = req.body;
 
   try {
+    // Vérifier si l'utilisateur existe déjà
     let user = await User.findOne({ email });
     if (user) return res.status(400).json({ msg: 'Cet email est déjà utilisé.' });
+
+    // Vérifier si une association existe déjà avec ce nom
+    const existingMember = await Member.findOne({ name });
+    if (existingMember) return res.status(400).json({ msg: 'Une association avec ce nom existe déjà.' });
 
     const member = new Member({ name, domain, location, email, phone, address });
     await member.save();
@@ -20,7 +26,7 @@ exports.register = async (req, res) => {
     const token = jwt.sign(
       { id: user._id, role: user.role },
       process.env.JWT_SECRET,
-      { expiresIn: '7d' }
+      { expiresIn: process.env.JWT_EXPIRE }
     );
 
     res.status(201).json({ token, user: { id: user._id, email, role: 'member' } });
@@ -29,7 +35,6 @@ exports.register = async (req, res) => {
     res.status(500).json({ msg: 'Erreur serveur.' });
   }
 };
-
 exports.login = async (req, res) => {
   const { email, password } = req.body;
 

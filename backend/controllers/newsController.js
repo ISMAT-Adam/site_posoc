@@ -75,3 +75,16 @@ exports.deleteNews = async (req, res) => {
 exports.deleteNewsById = async (req, res) => {
   return exports.deleteNews(req, res); // Réutilise la même logique
 };
+
+// backend/controllers/newsController.js
+exports.getNewsById = async (req, res) => {
+  try {
+    const news = await News.findById(req.params.id);
+    if (!news) {
+      return res.status(404).json({ msg: 'Actualité non trouvée.' });
+    }
+    res.json(news);
+  } catch (err) {
+    res.status(500).json({ msg: 'Erreur serveur.' });
+  }
+};
