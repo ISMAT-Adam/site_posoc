@@ -35,3 +35,18 @@ exports.deleteDocument = async (req, res) => {
     res.status(500).json({ msg: 'Erreur lors de la suppression.' });
   }
 };
+
+// backend/controllers/documentController.js
+exports.deleteDocumentById = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const doc = await Document.findById(id);
+    if (!doc) return res.status(404).json({ msg: 'Document non trouvé.' });
+
+    // ⚠️ Optionnel : supprimer physiquement le fichier avec fs.unlink
+    await Document.findByIdAndDelete(id);
+    res.json({ msg: 'Document supprimé avec succès.' });
+  } catch (err) {
+    res.status(500).json({ msg: 'Erreur lors de la suppression.' });
+  }
+};

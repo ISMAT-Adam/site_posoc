@@ -19,16 +19,17 @@ export default function Navbar() {
     i18n.changeLanguage(lng);
   };
 
-  {token && !isAdmin && (
-  <Link to="/mon-profil" className="btn btn-outline-secondary btn-sm me-2">
-    Mon profil
-  </Link>
-)}
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
       <div className="container">
-        <Link className="navbar-brand fw-bold" to="/">
-          POSOC
+        <Link className="navbar-brand d-flex align-items-center" to="/">
+          <img
+            src="http://localhost:5000/uploads/logos/Logo.png"
+            alt="POSOC"
+            height="30"
+            className="me-2"
+          />
+          <span className="d-none d-md-inline">POSOC</span>
         </Link>
         <button
           className="navbar-toggler"

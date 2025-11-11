@@ -1,22 +1,25 @@
-// backend/routes/members.js
 const express = require('express');
 const router = express.Router();
+const {
+  getAllMembers,
+  getMyMember,
+  updateMyMember,
+  deleteMyMember,
+  deleteMemberById // ← important !
+} = require('../controllers/memberController');
 
-const { getAllMembers, getMyMember, updateMyMember, deleteMyMember } = require('../controllers/memberController');
-
-// ✅ Importe les middlewares avec des noms DISTINCTS
-const auth = require('../middleware/auth');        // pour authentification
-const admin = require('../middleware/admin');      // pour rôle admin (si utilisé)
+const auth = require('../middleware/auth');
+const admin = require('../middleware/admin');
 
 // Routes publiques
 router.get('/', getAllMembers);
 
-// Routes protégées (membre connecté)
+// Routes membres (connectés)
 router.get('/me', auth, getMyMember);
 router.put('/me', auth, updateMyMember);
 router.delete('/me', auth, deleteMyMember);
 
-// Exemple de route admin (si besoin plus tard)
-// router.delete('/:id', auth, admin, ...);
+// Route admin
+router.delete('/admin/:id', auth, admin, deleteMemberById); // ← cette ligne est cruciale
 
 module.exports = router;

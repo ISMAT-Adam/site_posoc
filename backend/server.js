@@ -3,11 +3,11 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
-const dotenv = require('dotenv'); 
+const dotenv = require('dotenv');
 const path = require('path');
 
-dotenv.config(); // ← 2. Charge .env IMMÉDIATEMENT
-console.log('MONGO_URI =', process.env.MONGO_URI); // ← pour déboguer
+dotenv.config();
+console.log('MONGO_URI =', process.env.MONGO_URI);
 
 const connectDB = require('./config/db');
 
@@ -19,19 +19,22 @@ const documentRoutes = require('./routes/documents');
 const contactRoutes = require('./routes/contact');
 const aboutRoutes = require('./routes/about');
 
-
 const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(helmet());
-app.use(cors());
+app.use(cors()); // ← Doit être avant les routes
 app.use(morgan('dev'));
 app.use(express.json({ limit: '10mb' }));
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
+// ✅ Appliquer CORS aussi aux fichiers statiques
+app.use('/uploads', cors({
+  origin: 'http://localhost:5173', // ← URL de ton frontend Vite
+  credentials: true
+}), express.static(path.join(__dirname, 'uploads')));
 
-// Routes
+// Routes API
 app.use('/api/auth', authRoutes);
 app.use('/api/members', memberRoutes);
 app.use('/api/news', newsRoutes);
@@ -39,10 +42,12 @@ app.use('/api/documents', documentRoutes);
 app.use('/api/contact', contactRoutes);
 app.use('/api/about', aboutRoutes);
 
-
 // Démarrage
 connectDB().then(() => {
   app.listen(PORT, () => {
     console.log(`🚀 Serveur lancé sur http://localhost:${PORT}`);
   });
+}).catch(err => {
+  console.error('❌ Erreur au démarrage :', err.message);
+  process.exit(1);
 });

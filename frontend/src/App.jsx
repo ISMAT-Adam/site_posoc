@@ -19,6 +19,9 @@ import AdminNewsForm from './pages/AdminNewsForm';
 import AdminAboutEdit from './pages/AdminAboutEdit';
 import AdminDocumentForm from './pages/AdminDocumentForm';
 import AdminDocumentsList from './pages/AdminDocumentsList';
+import AdminMembersList from './pages/AdminMembersList';
+import AdminMessages from './pages/AdminMessages';
+import AdminNewsList from './pages/AdminNewsList';
 function App() {
   return (
     <Router>
@@ -41,6 +44,9 @@ function App() {
             <Route path="/admin/news/edit/:id" element={<AdminNewsForm />} />
             <Route path="/admin/documents/new" element={<AdminDocumentForm />} />
             <Route path="/admin/documents" element={<AdminDocumentsList />} />
+            <Route path="/admin/members" element={<AdminMembersList />} />
+            <Route path="/admin/messages" element={<AdminMessages />} />
+            <Route path="/admin/news" element={<AdminNewsList />} />
           </Routes>
         </main>
         <Footer />

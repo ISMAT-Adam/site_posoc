@@ -84,6 +84,9 @@ export default function Dashboard() {
           <Link to="/admin/messages" className="btn btn-outline-primary">Messages</Link>
           <Link to="/admin/a-propos" className="btn btn-outline-primary">Modifier "À propos"</Link>
           <Link to="/admin/documents/new" className="btn btn-outline-primary">Ajouter un document</Link>
+          <Link to="/admin/news" className="btn btn-outline-primary">
+  {t('admin.manageNews')}
+</Link>
         </div>
       </div>
     </div>

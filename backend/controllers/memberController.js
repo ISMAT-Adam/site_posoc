@@ -54,3 +54,33 @@ exports.deleteMyMember = async (req, res) => {
     res.status(500).json({ msg: 'Erreur serveur.' });
   }
 };
+
+// Supprimer un membre par ID (réservé à l'admin)
+exports.deleteMemberById = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // 1. Vérifier que le membre existe
+    const member = await Member.findById(id);
+    if (!member) {
+      return res.status(404).json({ msg: 'Membre non trouvé.' });
+    }
+
+    // 2. Trouver l'utilisateur lié à ce membre
+    const User = require('../models/User');
+    const user = await User.findOne({ associationId: id });
+
+    // 3. Supprimer l'utilisateur s'il existe
+    if (user) {
+      await User.findByIdAndDelete(user._id);
+    }
+
+    // 4. Supprimer le membre
+    await Member.findByIdAndDelete(id);
+
+    res.json({ msg: 'Membre supprimé avec succès.' });
+  } catch (err) {
+    console.error('Erreur dans deleteMemberById:', err);
+    res.status(500).json({ msg: 'Erreur serveur lors de la suppression.' });
+  }
+};
