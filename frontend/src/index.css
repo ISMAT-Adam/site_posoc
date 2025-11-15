@@ -66,3 +66,22 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+/* Style du footer */
+/* Couleurs du footer */
+footer {
+  background-color: #0d6efd; /* Bleu principal de Bootstrap */
+  color: #ffffff;
+}
+
+footer a {
+  color: #e9ecef !important;
+}
+
+footer a:hover {
+  color: #ffffff !important;
+  text-decoration: underline;
+}
+
+footer .border-top {
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}

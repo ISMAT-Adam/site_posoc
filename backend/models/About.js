@@ -16,15 +16,15 @@ const AboutSchema = new mongoose.Schema({
     vision: String,
     values: [String]
   },
-  // Bureau exécutif
+  // Bureau exécutif : tableau d'objets
   executiveBoard: [{
-    name: String,
-    title: String, // fonction
-    email: String,
-    phone: String,
-    photo: String // URL vers l'image
+    name: { type: String, required: true },
+    title: { type: String, required: true }, // fonction
+    email: { type: String },
+    phone: { type: String },
+    photo: { type: String } // URL vers l'image
   }],
-  // Coordonnées
+  // Coordonnées générales
   address: String,
   phone: String,
   email: String

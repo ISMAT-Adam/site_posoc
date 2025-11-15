@@ -28,12 +28,17 @@ app.use(cors()); // ← Doit être avant les routes
 app.use(morgan('dev'));
 app.use(express.json({ limit: '10mb' }));
 
-// ✅ Appliquer CORS aussi aux fichiers statiques
-app.use('/uploads', cors({
-  origin: 'http://localhost:5173', // ← URL de ton frontend Vite
+const corsOptions = {
+  origin: 'http://localhost:5173',
   credentials: true
-}), express.static(path.join(__dirname, 'uploads')));
+};
 
+app.use('/uploads', (req, res, next) => {
+  cors(corsOptions)(req, res, () => {
+    // Applique express.static après CORS
+    express.static(path.join(__dirname, 'uploads'))(req, res, next);
+  });
+});
 // Routes API
 app.use('/api/auth', authRoutes);
 app.use('/api/members', memberRoutes);

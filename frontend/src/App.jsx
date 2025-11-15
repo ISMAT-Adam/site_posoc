@@ -23,6 +23,7 @@ import AdminMembersList from './pages/AdminMembersList';
 import AdminMessages from './pages/AdminMessages';
 import AdminNewsList from './pages/AdminNewsList';
 import NewsDetail from './pages/NewsDetail';
+import AdminExecutiveBoard from './pages/AdminExecutiveBoard';
 
 function App() {
   return (
@@ -50,6 +51,7 @@ function App() {
             <Route path="/admin/messages" element={<AdminMessages />} />
             <Route path="/admin/news" element={<AdminNewsList />} />
             <Route path="/actualites/:id" element={<NewsDetail />} />
+            <Route path="/admin/executive" element={<AdminExecutiveBoard />} />
           </Routes>
         </main>
         <Footer />
