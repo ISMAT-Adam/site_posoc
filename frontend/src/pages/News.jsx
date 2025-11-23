@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import API from '../services/api';
+import API, { API_ROOT, buildAssetUrl } from '../services/api';
 
 export default function News() {
   const { t, i18n } = useTranslation();
@@ -50,10 +50,11 @@ export default function News() {
                 {/* Image principale */}
                 {item.images && item.images[0] && (
                   <img
-                    src={`http://localhost:5000${item.images[0]}`}
+                    src={buildAssetUrl(item.images[0])}
                     alt={item.title}
                     className="card-img-top"
                     style={{ height: '200px', objectFit: 'cover' }}
+                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = buildAssetUrl('/uploads/logos/Logo.png'); }}
                   />
                 )}
 
@@ -79,10 +80,11 @@ export default function News() {
                       {item.images.slice(1, 4).map((img, idx) => (
                         <img
                           key={idx}
-                          src={`http://localhost:5000${img}`}
+                          src={buildAssetUrl(img)}
                           alt=""
                           className="rounded me-1"
                           style={{ width: '50px', height: '50px', objectFit: 'cover' }}
+                          onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = buildAssetUrl('/uploads/logos/Logo.png'); }}
                         />
                       ))}
                       {item.images.length > 4 && (

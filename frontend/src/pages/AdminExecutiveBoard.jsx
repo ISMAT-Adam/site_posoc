@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import API from '../services/api';
+import API, { API_ROOT, buildAssetUrl } from '../services/api';
 
 export default function AdminExecutiveBoard() {
   const { t } = useTranslation();
@@ -10,7 +10,7 @@ export default function AdminExecutiveBoard() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const fetchAbout = async () => {
+    const fetch = async () => {
       try {
         const res = await API.get('/about');
         setAbout(res.data);
@@ -20,97 +20,50 @@ export default function AdminExecutiveBoard() {
         setLoading(false);
       }
     };
-    fetchAbout();
+    fetch();
   }, [t]);
 
-  const handleAdd = async () => {
+  const handleAdd = () => {
     const name = prompt(t('admin.executive.name'));
     const title = prompt(t('admin.executive.title'));
     const email = prompt(t('admin.executive.email'));
     const phone = prompt(t('admin.executive.phone'));
+    const photo = prompt(t('admin.executive.photoUrl'));
 
-    if (!name || !title) return alert(t('admin.executive.required'));
-
-    // Upload photo
-    const photoUrl = await uploadPhoto();
-
-    try {
-      const res = await API.post('/about/executive', {
-        name,
-        title,
-        email: email || null,
-        phone: phone || null,
-        photo: photoUrl || null
-      });
-      setAbout(res.data);
-    } catch (err) {
-      alert(t('admin.executive.addError'));
+    if (!name || !title) {
+      alert(t('admin.executive.required'));
+      return;
     }
+
+    API.post('/about/executive', { name, title, email, phone, photo })
+      .then(res => setAbout(res.data))
+      .catch(() => alert(t('admin.executive.addError')));
   };
 
-  const handleUpdate = async (index) => {
+  const handleUpdate = (index) => {
     const member = about.executiveBoard[index];
     const name = prompt(t('admin.executive.name'), member.name);
     const title = prompt(t('admin.executive.title'), member.title);
     const email = prompt(t('admin.executive.email'), member.email);
     const phone = prompt(t('admin.executive.phone'), member.phone);
+    const photo = prompt(t('admin.executive.photoUrl'), member.photo);
 
-    if (!name || !title) return alert(t('admin.executive.required'));
-
-    // Upload photo (optionnel)
-    const newPhoto = await uploadPhoto();
-    const photo = newPhoto || member.photo;
-
-    try {
-      const res = await API.put(`/about/executive/${index}`, {
-        name,
-        title,
-        email: email || null,
-        phone: phone || null,
-        photo
-      });
-      setAbout(res.data);
-    } catch (err) {
-      alert(t('admin.executive.updateError'));
+    if (!name || !title) {
+      alert(t('admin.executive.required'));
+      return;
     }
+
+    API.put(`/about/executive/${index}`, { name, title, email, phone, photo })
+      .then(res => setAbout(res.data))
+      .catch(() => alert(t('admin.executive.updateError')));
   };
 
-  const handleDelete = async (index) => {
+  const handleDelete = (index) => {
     if (!window.confirm(t('admin.executive.confirmDelete'))) return;
-    try {
-      await API.delete(`/about/executive/${index}`);
-      setAbout(prev => ({
-        ...prev,
-        executiveBoard: prev.executiveBoard.filter((_, i) => i !== index)
-      }));
-    } catch (err) {
-      alert(t('admin.executive.deleteError'));
-    }
-  };
 
-  // Fonction utilitaire pour upload de photo
-  const uploadPhoto = async () => {
-    const input = document.createElement('input');
-    input.type = 'file';
-    input.accept = 'image/*';
-    input.onchange = async (e) => {
-      const file = e.target.files[0];
-      if (!file) return;
-
-      const formData = new FormData();
-      formData.append('photo', file);
-
-      try {
-        const res = await API.post('/about/executive/upload', formData, {
-          headers: { 'Content-Type': 'multipart/form-data' }
-        });
-        return res.data.photoUrl;
-      } catch (err) {
-        alert(t('admin.executive.uploadError'));
-        return null;
-      }
-    };
-    input.click();
+    API.delete(`/about/executive/${index}`)
+      .then(res => setAbout(res.data))
+      .catch(() => alert(t('admin.executive.deleteError')));
   };
 
   if (loading) return <div className="container py-5">Chargement...</div>;
@@ -127,14 +80,15 @@ export default function AdminExecutiveBoard() {
       <div className="row">
         {about.executiveBoard.map((member, index) => (
           <div className="col-md-4 mb-4" key={index}>
-            <div className="card h-100 shadow">
+            <div className="card h-100 shadow-sm">
               <div className="text-center p-3">
                 {member.photo ? (
                   <img
-                    src={`http://localhost:5000${member.photo}`}
+                    src={buildAssetUrl(member.photo)}
                     alt={member.name}
                     className="rounded-circle mb-3"
                     style={{ width: '100px', height: '100px', objectFit: 'cover' }}
+                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = buildAssetUrl('/uploads/logos/Logo.png'); }}
                   />
                 ) : (
                   <div className="bg-secondary bg-opacity-25 rounded-circle d-flex align-items-center justify-content-center mb-3"

@@ -17,8 +17,16 @@ exports.register = async (req, res) => {
     const existingMember = await Member.findOne({ name });
     if (existingMember) return res.status(400).json({ msg: 'Une association avec ce nom existe déjà.' });
 
-    const member = new Member({ name, domain, location, email, phone, address });
-    await member.save();
+    const member = new Member({ 
+  name, 
+  domain, 
+  location, 
+  email, 
+  phone, 
+  address,
+  status: 'pending' // ← ajouté
+});
+await member.save();
 
     user = new User({ email, password, role: 'member', associationId: member._id });
     await user.save();

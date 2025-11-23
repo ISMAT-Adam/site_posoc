@@ -78,17 +78,23 @@ export default function Dashboard() {
       <div className="mt-5">
         <h3>Gestion rapide</h3>
         <div className="d-flex flex-wrap gap-2">
-  <Link to="/admin/members" className="btn btn-outline-primary me-2">Membres</Link>
-  <Link to="/admin/news/new" className="btn btn-outline-primary me-2">Nouvelle actualité</Link>
-  <Link to="/admin/documents" className="btn btn-outline-primary me-2">Documents</Link>
-  <Link to="/admin/messages" className="btn btn-outline-primary me-2">Messages</Link>
-  <Link to="/admin/a-propos" className="btn btn-outline-primary me-2">Modifier "À propos"</Link>
-  <Link to="/admin/documents/new" className="btn btn-outline-primary me-2">Ajouter un document</Link>
-  <Link to="/admin/executive" className="btn btn-outline-primary me-2">
-    {t('admin.manageExecutiveBoard')}
-  </Link>
-  <Link to="/admin/news" className="btn btn-outline-primary me-2">Gérer les actualités</Link>
-</div>
+          <Link to="/admin/members" className="btn btn-outline-primary me-2">Membres</Link>
+          <Link to="/admin/news/new" className="btn btn-outline-primary me-2">Nouvelle actualité</Link>
+          <Link to="/admin/documents" className="btn btn-outline-primary me-2">Documents</Link>
+          <Link to="/admin/messages" className="btn btn-outline-primary me-2">Messages</Link>
+          <Link to="/admin/a-propos" className="btn btn-outline-primary me-2">Modifier "À propos"</Link>
+          <Link to="/admin/documents/new" className="btn btn-outline-primary me-2">Ajouter un document</Link>
+          <Link to="/admin/executive" className="btn btn-outline-primary me-2">
+            {t('admin.manageExecutiveBoard')}
+          </Link>
+          <Link to="/admin/news" className="btn btn-outline-primary me-2">Gérer les actualités</Link>
+          <Link to="/admin/logo" className="btn btn-outline-primary">
+            {t('admin.changeLogo')}
+          </Link>
+          <Link to="/admin/members/pending" className="btn btn-outline-primary">
+            Demandes en attente
+          </Link>
+        </div>
       </div>
     </div>
   );

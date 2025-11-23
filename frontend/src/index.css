@@ -54,34 +54,47 @@ button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
-  button {
-    background-color: #f9f9f9;
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
   }
 }
+
 /* Style du footer */
-/* Couleurs du footer */
 footer {
   background-color: #0d6efd; /* Bleu principal de Bootstrap */
   color: #ffffff;
 }
 
 footer a {
-  color: #e9ecef !important;
+  color: #05396d !important;
+}
+
+footer {
+  background: linear-gradient(to bottom, #0d47a1, #1976d2) !important;
 }
 
 footer a:hover {
-  color: #ffffff !important;
+  color: #ffd700 !important; /* Jaune doré au survol */
   text-decoration: underline;
 }
 
-footer .border-top {
-  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+/* Effet de carte flottante */
+.floating-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transform-style: preserve-3d;
+}
+
+.floating-card:hover {
+  transform: translateY(-10px) scale(1.02);
+  box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.175) !important;
+}
+
+/* Animation au survol des membres */
+.hover-lift {
+  transition: transform 0.25s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-5px);
 }

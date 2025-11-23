@@ -40,3 +40,27 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Couleur du Navbar */
+.navbar.bg-gradient {
+  background: linear-gradient(90deg, #0d47a1, #1976d2) !important;
+}
+
+/* Texte blanc pour le Navbar */
+.navbar .nav-link,
+.navbar .navbar-brand,
+.navbar .btn-light {
+  color: white !important;
+}
+
+/* Boutons blancs dans le Navbar */
+.navbar .btn-light {
+  background-color: white !important;
+  color: #0d47a1 !important;
+  border: 1px solid #0d47a1 !important;
+}
+
+.navbar .btn-light:hover {
+  background-color: #f8f9fa !important;
+  color: #0d47a1 !important;
+}

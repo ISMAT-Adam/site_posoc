@@ -60,6 +60,21 @@ exports.deleteMemberById = async (req, res) => {
   try {
     const { id } = req.params;
 
+    exports.getAllMembers = async (req, res) => {
+  try {
+    const { status } = req.query;
+    let filter = {};
+    if (status === 'approved') {
+      filter = { status: 'approved' };
+    }
+    // L’admin peut voir tous les membres, mais le public seulement 'approved'
+    const members = await Member.find(filter).select('-__v');
+    res.json(members);
+  } catch (err) {
+    res.status(500).json({ msg: 'Erreur serveur.' });
+  }
+};
+
     // 1. Vérifier que le membre existe
     const member = await Member.findById(id);
     if (!member) {

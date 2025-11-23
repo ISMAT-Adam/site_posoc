@@ -1,6 +1,8 @@
-// frontend/src/components/Navbar.jsx
+// src/components/Navbar.jsx
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { API_ROOT } from '../services/api';
+import { buildAssetUrl } from '../services/api';
 import { useTranslation } from 'react-i18next';
 
 export default function Navbar() {
@@ -20,17 +22,26 @@ export default function Navbar() {
   };
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-primary">
+    <nav
+      className="navbar navbar-expand-lg navbar-dark bg-gradient shadow-sm"
+      style={{
+        background: 'linear-gradient(90deg, #0d47a1, #1976d2) !important',
+        color: 'black !important'
+      }}
+    >
       <div className="container">
-        <Link className="navbar-brand d-flex align-items-center" to="/">
+        {/* Logo + Nom */}
+        <Link to="/" className="navbar-brand d-flex align-items-center text-black">
           <img
-            src="http://localhost:5000/uploads/logos/Logo.png"
+            src={buildAssetUrl('/uploads/logos/Logo.png')}
             alt="POSOC"
-            height="30"
-            className="me-2"
+            height="40"
+            className="me-3 rounded"
+            style={{ display: 'inline-block' }}
           />
-          <span className="d-none d-md-inline">POSOC</span>
+         
         </Link>
+
         <button
           className="navbar-toggler"
           type="button"
@@ -42,47 +53,74 @@ export default function Navbar() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
+
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            <li className="nav-item"><Link className="nav-link" to="/">{t('nav.home')}</Link></li>
-            <li className="nav-item"><Link className="nav-link" to="/a-propos">{t('nav.about')}</Link></li>
-            <li className="nav-item"><Link className="nav-link" to="/membres">{t('nav.members')}</Link></li>
-            <li className="nav-item"><Link className="nav-link" to="/actualites">{t('nav.news')}</Link></li>
-            <li className="nav-item"><Link className="nav-link" to="/documents">{t('nav.documents')}</Link></li>
-            <li className="nav-item"><Link className="nav-link" to="/contact">{t('nav.contact')}</Link></li>
+            <li className="nav-item">
+              <Link className="nav-link text-black" to="/">
+                {t('nav.home')}
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link text-black" to="/a-propos">
+                {t('nav.about')}
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link text-black" to="/membres">
+                {t('nav.members')}
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link text-black" to="/actualites">
+                {t('nav.news')}
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link text-black" to="/documents">
+                {t('nav.documents')}
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link text-black" to="/contact">
+                {t('nav.contact')}
+              </Link>
+            </li>
           </ul>
 
-          <div className="d-flex align-items-center">
-            <div className="btn-group me-2" role="group">
+          <div className="d-flex align-items-center gap-3">
+            {/* Sélecteur de langue */}
+            <div className="btn-group btn-group-sm" role="group">
               <button
                 type="button"
-                className="btn btn-sm btn-outline-light"
+                className={`btn ${i18n.language === 'fr' ? 'btn-light' : 'btn-outline-light'} btn-sm`}
                 onClick={() => changeLanguage('fr')}
               >
                 FR
               </button>
               <button
                 type="button"
-                className="btn btn-sm btn-outline-light"
+                className={`btn ${i18n.language === 'ar' ? 'btn-light' : 'btn-outline-light'} btn-sm`}
                 onClick={() => changeLanguage('ar')}
               >
                 عربي
               </button>
             </div>
 
+            {/* Boutons authentification */}
             {token ? (
               <>
                 {isAdmin && (
-                  <Link to="/dashboard" className="btn btn-sm btn-warning me-2">
+                  <Link to="/dashboard" className="btn btn-warning btn-sm px-3">
                     {t('nav.dashboard')}
                   </Link>
                 )}
-                <button className="btn btn-sm btn-light" onClick={handleLogout}>
+                <button className="btn btn-light btn-sm px-3" onClick={handleLogout}>
                   Déconnexion
                 </button>
               </>
             ) : (
-              <Link to="/login" className="btn btn-sm btn-light">
+              <Link to="/login" className="btn btn-light btn-sm px-3">
                 {t('nav.login')}
               </Link>
             )}

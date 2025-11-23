@@ -1,9 +1,8 @@
 // frontend/src/App.jsx
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Navbar from './components/Navbar';
+import Navbar from './components/Navbar'; // ← Cette ligne doit exister
 import Footer from './components/Footer';
-
 // Pages
 import Home from './pages/Home';
 import About from './pages/About';
@@ -24,6 +23,8 @@ import AdminMessages from './pages/AdminMessages';
 import AdminNewsList from './pages/AdminNewsList';
 import NewsDetail from './pages/NewsDetail';
 import AdminExecutiveBoard from './pages/AdminExecutiveBoard';
+import AdminLogoUpload from './pages/AdminLogoUpload';
+import AdminPendingMembers from './pages/AdminPendingMembers'; // ← Ajoute cette ligne
 
 function App() {
   return (
@@ -52,6 +53,8 @@ function App() {
             <Route path="/admin/news" element={<AdminNewsList />} />
             <Route path="/actualites/:id" element={<NewsDetail />} />
             <Route path="/admin/executive" element={<AdminExecutiveBoard />} />
+            <Route path="/admin/logo" element={<AdminLogoUpload />} />
+            <Route path="/admin/members/pending" element={<AdminPendingMembers />} />
           </Routes>
         </main>
         <Footer />

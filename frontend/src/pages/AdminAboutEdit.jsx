@@ -104,11 +104,11 @@ export default function AdminAboutEdit() {
             </div>
             <div className="col-md-3">
               <input
-                className="form-control"
-                placeholder="Photo URL"
-                value={m.photo || ''}
-                onChange={(e) => handleBoardChange(i, 'photo', e.target.value)}
-              />
+                  className="form-control"
+                  placeholder="Photo (ex: /uploads/photos/nom.jpg)"
+                  value={m.photo || ''}
+                  onChange={(e) => handleBoardChange(i, 'photo', e.target.value)}
+                />
             </div>
           </div>
         ))}

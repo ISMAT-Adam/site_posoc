@@ -26,7 +26,7 @@ exports.getAbout = async (req, res) => {
             title: "Président",
             email: "ahmed@posoc.dz",
             phone: "+213 123 456 789",
-            photo: "/uploads/photos/president.jpg"
+            photo: "/uploads/photos/Zakaria.jpeg"
           }
         ],
         address: "10 Rue des Frères Bouadou, Alger, Algérie",
@@ -41,15 +41,13 @@ exports.getAbout = async (req, res) => {
   }
 };
 
-// ✅ Mettre à jour les données générales "À propos"
+// ✅ Mettre à jour les données générales (hors bureau exécutif)
 exports.updateAbout = async (req, res) => {
   try {
     let about = await About.findOne();
-    if (!about) {
-      return res.status(404).json({ msg: 'Aucune donnée de "À propos" trouvée.' });
-    }
+    if (!about) return res.status(404).json({ msg: 'Aucune donnée trouvée.' });
 
-    // Mets à jour les champs
+    // Mets à jour les champs FR/AR, coordonnées, etc.
     Object.assign(about, req.body);
     await about.save();
     res.json(about);
@@ -64,18 +62,9 @@ exports.addExecutiveMember = async (req, res) => {
     const { name, title, email, phone, photo } = req.body;
     const about = await About.findOne();
 
-    if (!about) {
-      return res.status(404).json({ msg: 'Aucune donnée de "À propos" trouvée.' });
-    }
+    if (!about) return res.status(404).json({ msg: 'Aucune donnée "À propos" trouvée.' });
 
-    about.executiveBoard.push({
-      name,
-      title,
-      email: email || null,
-      phone: phone || null,
-      photo: photo || null
-    });
-
+    about.executiveBoard.push({ name, title, email, phone, photo });
     await about.save();
     res.status(201).json(about);
   } catch (err) {
@@ -83,25 +72,7 @@ exports.addExecutiveMember = async (req, res) => {
   }
 };
 
-// ✅ Supprimer un membre du bureau exécutif
-exports.deleteExecutiveMember = async (req, res) => {
-  try {
-    const { index } = req.params; // index du membre dans le tableau
-    const about = await About.findOne();
-
-    if (!about || !about.executiveBoard[index]) {
-      return res.status(404).json({ msg: 'Membre non trouvé.' });
-    }
-
-    about.executiveBoard.splice(index, 1);
-    await about.save();
-    res.json({ msg: 'Membre supprimé.', about });
-  } catch (err) {
-    res.status(500).json({ msg: 'Erreur lors de la suppression.' });
-  }
-};
-
-// ✅ Mettre à jour un membre du bureau exécutif
+// ✅ Mettre à jour un membre du bureau exécutif (par index)
 exports.updateExecutiveMember = async (req, res) => {
   try {
     const { index } = req.params;
@@ -112,18 +83,28 @@ exports.updateExecutiveMember = async (req, res) => {
       return res.status(404).json({ msg: 'Membre non trouvé.' });
     }
 
-    about.executiveBoard[index] = {
-      ...about.executiveBoard[index],
-      name,
-      title,
-      email: email || null,
-      phone: phone || null,
-      photo: photo || null
-    };
-
+    about.executiveBoard[index] = { ...about.executiveBoard[index], name, title, email, phone, photo };
     await about.save();
     res.json(about);
   } catch (err) {
     res.status(500).json({ msg: 'Erreur lors de la mise à jour.' });
+  }
+};
+
+// ✅ Supprimer un membre du bureau exécutif (par index)
+exports.deleteExecutiveMember = async (req, res) => {
+  try {
+    const { index } = req.params;
+    const about = await About.findOne();
+
+    if (!about || !about.executiveBoard[index]) {
+      return res.status(404).json({ msg: 'Membre non trouvé.' });
+    }
+
+    about.executiveBoard.splice(index, 1);
+    await about.save();
+    res.json(about);
+  } catch (err) {
+    res.status(500).json({ msg: 'Erreur lors de la suppression.' });
   }
 };

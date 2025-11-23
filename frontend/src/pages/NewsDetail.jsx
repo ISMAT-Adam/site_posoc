@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useParams, Link } from 'react-router-dom';
-import API from '../services/api';
+import API, { API_ROOT, buildAssetUrl } from '../services/api';
 
 export default function NewsDetail() {
   const { t, i18n } = useTranslation();
@@ -58,9 +58,10 @@ export default function NewsDetail() {
         <div className="my-4">
           {news.images && news.images[0] && (
             <img
-              src={`http://localhost:5000${news.images[0]}`}
+              src={buildAssetUrl(news.images[0])}
               alt={news.title}
               className="img-fluid mb-4"
+              onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = buildAssetUrl('/uploads/logos/Logo.png'); }}
             />
           )}
           <div dangerouslySetInnerHTML={{ __html: news.content.replace(/\n/g, '<br />') }} />
@@ -71,12 +72,13 @@ export default function NewsDetail() {
           <div className="mt-4">
             <h5>{t('news.gallery')}</h5>
             <div className="row">
-              {news.images.slice(1).map((img, idx) => (
+                {news.images.slice(1).map((img, idx) => (
                 <div className="col-3 mb-2" key={idx}>
                   <img
-                    src={`http://localhost:5000${img}`}
+                    src={buildAssetUrl(img)}
                     alt=""
                     className="img-fluid rounded"
+                    onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = buildAssetUrl('/uploads/logos/Logo.png'); }}
                   />
                 </div>
               ))}
