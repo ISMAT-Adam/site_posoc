@@ -100,12 +100,19 @@ export default function About() {
                   <strong>{lang === 'fr' ? 'Adresse :' : 'العنوان :'}</strong> {about.address}
                 </li>
                 <li className="mb-2" style={{ textAlign }}>
-                  <i className="bi bi-telephone text-success me-2"></i>
-                  <strong>{lang === 'fr' ? 'Téléphone :' : 'الهاتف :'}</strong> {about.phone}
+                  <p> 
+                     <i className="bi bi-telephone text-success me-2"></i>
+                    <strong>{lang === 'fr' ? 'Téléphone :' : 'الهاتف :'}</strong> +235 66 34 00 13
+                  </p>
+                  
+                   
                 </li>
                 <li className="mb-2" style={{ textAlign }}>
-                  <i className="bi bi-envelope text-primary me-2"></i>
-                  <strong>Email :</strong> {about.email}
+                 
+                  <p> 
+                     <i className="bi bi-envelope text-primary me-2"></i>
+                    <strong>Email : </strong> posoc51@gmail.com 
+                  </p>
                 </li>
               </ul>
             </div>

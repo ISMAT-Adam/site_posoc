@@ -25,8 +25,7 @@ export default function Navbar() {
     <nav
       className="navbar navbar-expand-lg navbar-dark bg-gradient shadow-sm"
       style={{
-        background: 'linear-gradient(90deg, #0d47a1, #1976d2) !important',
-        color: 'black !important'
+        background: 'linear-gradient(90deg, #0d47a1, #1976d2)'
       }}
     >
       <div className="container">
@@ -51,7 +50,7 @@ export default function Navbar() {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <span className="navbar-toggler-icon"></span>
+          <i className="bi bi-list" style={{ fontSize: '1.25rem', color: '#0c0b0bff' }}></i>
         </button>
 
         <div className="collapse navbar-collapse" id="navbarNav">

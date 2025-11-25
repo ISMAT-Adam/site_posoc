@@ -1,11 +1,29 @@
 // src/pages/Home.jsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom'; // ← Important
-import { buildAssetUrl } from '../services/api';
+import { Link } from 'react-router-dom';
+import API, { buildAssetUrl } from '../services/api';
 
 export default function Home() {
   const { t } = useTranslation();
+
+  const [news, setNews] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Charger les 3 dernières actualités
+  useEffect(() => {
+    const fetchNews = async () => {
+      try {
+        const res = await API.get("/news");
+        setNews(res.data.slice(0, 3)); // afficher seulement 3 actus
+      } catch (err) {
+        console.error("Erreur chargement news:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchNews();
+  }, []);
 
   return (
     <div className="container py-5 text-center">
@@ -26,12 +44,12 @@ export default function Home() {
             </Link>
           </div>
         </div>
+
         <div className="col-lg-5 text-center">
           <img
             src={buildAssetUrl('/uploads/logos/Logo.png')}
             alt="POSOC"
-            className="img-fluid rounded shadow"
-            style={{ maxHeight: '300px', objectFit: 'cover' }}
+            className="img-fluid rounded shadow home-hero"
           />
         </div>
       </div>
@@ -50,6 +68,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+
         <div className="col-md-4">
           <div className="card border-0 h-100 shadow-sm">
             <div className="card-body">
@@ -61,6 +80,7 @@ export default function Home() {
             </div>
           </div>
         </div>
+
         <div className="col-md-4">
           <div className="card border-0 h-100 shadow-sm">
             <div className="card-body">
@@ -72,6 +92,53 @@ export default function Home() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* ACTUALITÉS RÉCENTES */}
+      <hr className="my-5" />
+      <h2 className="text-center mb-4">Actualités récentes</h2>
+
+      {loading ? (
+        <p className="text-center">Chargement des actualités...</p>
+      ) : news.length === 0 ? (
+        <p className="text-center">Aucune actualité disponible pour le moment.</p>
+      ) : (
+        <div className="row">
+          {news.map((item) => (
+            <div className="col-md-4 mb-4" key={item._id}>
+              <div className="card h-100 shadow-sm">
+                {item.images && item.images[0] && (
+                  <img
+                    src={buildAssetUrl(item.images[0])}
+                    alt={item.title}
+                    className="card-img-top news-img"
+                  />
+                )}
+
+                <div className="card-body d-flex flex-column">
+                  <h5>{item.title}</h5>
+                  <p className="text-muted small">
+                    {new Date(item.date).toLocaleDateString()}
+                  </p>
+                  <p>{item.content.substring(0, 100)}...</p>
+
+                  <Link
+                    to={`/actualites/${item._id}`}
+                    className="btn btn-outline-primary mt-auto"
+                  >
+                    Lire la suite
+                  </Link>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      <div className="text-center mt-3">
+        <Link to="/actualites" className="btn btn-primary px-4">
+          Voir toutes les actualités
+        </Link>
       </div>
     </div>
   );
