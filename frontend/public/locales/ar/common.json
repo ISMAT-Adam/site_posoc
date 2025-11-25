@@ -8,7 +8,8 @@
     "contact": "اتصل بنا",
     "login": "تسجيل الدخول",
     "register": "التسجيل",
-    "dashboard": "لوحة التحكم"
+    "dashboard": "لوحة التحكم",
+    "followUs": "تابعنا"
   },
   "home": {
     "title": "مرحباً بكم في منصة بوصوك",
@@ -41,12 +42,17 @@
       "communique": "بلاغ"
     },
     "add": "خبر جديد",
-    "edit": "تعديل الخبر"
+    "edit": "تعديل الخبر",
+    "readMore": "اقرأ المزيد",
+    "backToList": "العودة إلى القائمة",
+    "gallery": "معرض الصور",
+    "noNews": "لا توجد أخبار حالياً."
   },
   "members": {
-    "search": "البحث حسب الاسم أو المجال أو الموقع",
+    "search": "البحث عن جمعية (الاسم، المجال، الموقع)",
     "filterDomain": "تصفية حسب المجال",
-    "add": "إضافة جمعيتي"
+    "add": "إضافة جمعيتي",
+    "seePublicDirectory": "عرض الدليل العام"
   },
   "contact": {
     "name": "الاسم",
@@ -73,6 +79,51 @@
     "manageMembers": "إدارة الأعضاء",
     "manageNews": "إدارة الأخبار",
     "manageDocuments": "إدارة الوثائق",
-    "manageMessages": "إدارة الرسائل"
+    "manageMessages": "إدارة الرسائل",
+    "manageExecutiveBoard": "إدارة المكتب التنفيذي",
+    "quickActions": "إدارة سريعة",
+    "confirmDeleteMember": "هل أنت متأكد من رغبتك في حذف هذا العضو؟",
+    "deleteNotImplemented": "الحذف غير مُفعّل بعد.",
+    "deleteError": "خطأ أثناء الحذف.",
+    "loading": "تحميل...",
+    "noMembers": "لا توجد أعضاء حالياً.",
+    "seePublicDirectory": "عرض الدليل العام",
+    "actions": "الإجراءات",
+    "delete": "حذف",
+    "back": "رجوع",
+    "confirmDeleteNews": "هل أنت متأكد من رغبتك في حذف هذا الخبر؟",
+    "newsDeleted": "تم حذف الخبر بنجاح.",
+    "confirmDeleteDoc": "هل أنت متأكد من رغبتك في حذف هذا المستند؟",
+    "docDeleted": "تم حذف المستند بنجاح.",
+    "loadMembersError": "تعذر تحميل قائمة الأعضاء.",
+    "memberDeleted": "تم حذف العضو بنجاح.",
+    "loadAboutError": "تعذر تحميل بيانات 'من نحن'.",
+    "executive": {
+      "add": "إضافة عضو",
+      "edit": "تعديل",
+      "delete": "حذف",
+      "name": "الاسم",
+      "title": "الوظيفة",
+      "email": "البريد الإلكتروني (اختياري)",
+      "phone": "الهاتف (اختياري)",
+      "photoUrl": "رابط الصورة (اختياري)",
+      "required": "الاسم والوظيفة إلزاميان.",
+      "confirmDelete": "هل أنت متأكد من رغبتك في حذف هذا العضو؟",
+      "addError": "خطأ أثناء الإضافة.",
+      "updateError": "خطأ أثناء التحديث.",
+      "deleteError": "خطأ أثناء الحذف.",
+      "uploadError": "خطأ أثناء رفع الصورة."
+    },
+    "changeLogo": "تغيير الشعار الرئيسي",
+    "selectNewLogo": "اختر صورة جديدة",
+    "updateLogo": "تحديث الشعار",
+    "updating": "جارٍ التحديث...",
+    "logoUpdated": "تم تحديث الشعار بنجاح.",
+    "logoUpdateError": "خطأ أثناء تحديث الشعار.",
+    "selectLogo": "الرجاء اختيار صورة."
+  },
+  "register": {
+    "alreadyHasAssociation": "لديك بالفعل جمعية مسجلة.",
+    "goToMyProfile": "الوصول إلى ملفي"
   }
 }

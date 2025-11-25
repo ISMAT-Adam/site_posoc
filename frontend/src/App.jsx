@@ -25,6 +25,7 @@ import NewsDetail from './pages/NewsDetail';
 import AdminExecutiveBoard from './pages/AdminExecutiveBoard';
 import AdminLogoUpload from './pages/AdminLogoUpload';
 import AdminPendingMembers from './pages/AdminPendingMembers'; // ← Ajoute cette ligne
+import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
   return (
@@ -55,6 +56,14 @@ function App() {
             <Route path="/admin/executive" element={<AdminExecutiveBoard />} />
             <Route path="/admin/logo" element={<AdminLogoUpload />} />
             <Route path="/admin/members/pending" element={<AdminPendingMembers />} />
+            <Route
+  path="/documents"
+  element={
+    <ProtectedRoute>
+      <Documents />
+    </ProtectedRoute>
+  }
+/>
           </Routes>
         </main>
         <Footer />

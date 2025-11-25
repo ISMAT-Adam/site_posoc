@@ -1,26 +1,50 @@
 // frontend/src/pages/Documents.jsx
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import API from '../services/api';
 
 export default function Documents() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
   const [documents, setDocuments] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // 🔒 Vérifie si l'utilisateur est connecté
+    const token = localStorage.getItem('token');
+    if (!token) {
+      navigate('/login', { replace: true });
+      return;
+    }
+
+    // Optionnel : vérifie le rôle (membre ou admin)
+    const role = localStorage.getItem('role');
+    if (role !== 'member' && role !== 'admin') {
+      navigate('/login', { replace: true });
+      return;
+    }
+
+    // ✅ Charge les documents
     const fetchDocs = async () => {
       try {
         const res = await API.get('/documents');
         setDocuments(res.data);
       } catch (err) {
-        console.error(err);
+        console.error('Erreur lors du chargement des documents:', err);
+        // Optionnel : rediriger si erreur 401/403
+        if (err.response?.status === 401 || err.response?.status === 403) {
+          localStorage.removeItem('token');
+          localStorage.removeItem('role');
+          navigate('/login', { replace: true });
+        }
       } finally {
         setLoading(false);
       }
     };
+
     fetchDocs();
-  }, []);
+  }, [navigate]);
 
   const getCategoryLabel = (cat) => {
     const labels = {
@@ -33,12 +57,16 @@ export default function Documents() {
     return labels[cat] || cat;
   };
 
+  if (loading) {
+    return <div className="container py-5">Chargement...</div>;
+  }
+
   return (
     <div className="container py-5">
       <h1 className="mb-4">{t('nav.documents')}</h1>
 
-      {loading ? (
-        <p>Chargement...</p>
+      {documents.length === 0 ? (
+        <p>Aucun document disponible.</p>
       ) : (
         <div className="table-responsive">
           <table className="table table-hover">
@@ -57,7 +85,12 @@ export default function Documents() {
                   <td>{getCategoryLabel(doc.category)}</td>
                   <td>{new Date(doc.uploadedAt).toLocaleDateString()}</td>
                   <td>
-                    <a href={doc.fileUrl} target="_blank" rel="noreferrer" className="btn btn-sm btn-outline-primary">
+                    <a
+                      href={doc.fileUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="btn btn-sm btn-outline-primary"
+                    >
                       {t('docs.download')}
                     </a>
                   </td>

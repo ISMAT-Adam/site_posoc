@@ -8,7 +8,8 @@
     "contact": "Contact",
     "login": "Connexion",
     "register": "Inscription",
-    "dashboard": "Tableau de bord"
+    "dashboard": "Tableau de bord",
+    "followUs": "Suivez-nous"
   },
   "home": {
     "title": "Bienvenue sur la Plateforme POSOC",
@@ -41,12 +42,17 @@
       "communique": "Communiqué"
     },
     "add": "Nouvelle actualité",
-    "edit": "Modifier l’actualité"
+    "edit": "Modifier l’actualité",
+    "readMore": "Lire la suite",
+    "backToList": "Retour à la liste",
+    "gallery": "Galerie d'images",
+    "noNews": "Aucune actualité pour le moment."
   },
   "members": {
-    "search": "Rechercher par nom, domaine ou localisation",
+    "search": "Rechercher une association (nom, domaine, localisation)",
     "filterDomain": "Filtrer par domaine",
-    "add": "Ajouter mon association"
+    "add": "Ajouter mon association",
+    "seePublicDirectory": "Voir l’annuaire public"
   },
   "contact": {
     "name": "Nom",
@@ -73,6 +79,51 @@
     "manageMembers": "Gérer les membres",
     "manageNews": "Gérer les actualités",
     "manageDocuments": "Gérer les documents",
-    "manageMessages": "Gérer les messages"
+    "manageMessages": "Gérer les messages",
+    "manageExecutiveBoard": "Gérer le Bureau Exécutif",
+    "quickActions": "Gestion rapide",
+    "confirmDeleteMember": "Êtes-vous sûr de vouloir supprimer ce membre ?",
+    "deleteNotImplemented": "La suppression n’est pas encore implémentée.",
+    "deleteError": "Erreur lors de la suppression.",
+    "loading": "Chargement...",
+    "noMembers": "Aucun membre pour le moment.",
+    "seePublicDirectory": "Voir l’annuaire public",
+    "actions": "Actions",
+    "delete": "Supprimer",
+    "back": "Retour",
+    "confirmDeleteNews": "Êtes-vous sûr de vouloir supprimer cette actualité ?",
+    "newsDeleted": "Actualité supprimée avec succès.",
+    "confirmDeleteDoc": "Êtes-vous sûr de vouloir supprimer ce document ?",
+    "docDeleted": "Document supprimé avec succès.",
+    "loadMembersError": "Impossible de charger la liste des membres.",
+    "memberDeleted": "Membre supprimé avec succès.",
+    "loadAboutError": "Impossible de charger les données de 'À propos'.",
+    "executive": {
+      "add": "Ajouter un membre",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "name": "Nom",
+      "title": "Fonction",
+      "email": "Email (optionnel)",
+      "phone": "Téléphone (optionnel)",
+      "photoUrl": "URL de la photo (optionnel)",
+      "required": "Le nom et la fonction sont obligatoires.",
+      "confirmDelete": "Êtes-vous sûr de vouloir supprimer ce membre ?",
+      "addError": "Erreur lors de l’ajout.",
+      "updateError": "Erreur lors de la mise à jour.",
+      "deleteError": "Erreur lors de la suppression.",
+      "uploadError": "Erreur lors de l’upload de la photo."
+    },
+    "changeLogo": "Changer le logo principal",
+    "selectNewLogo": "Sélectionnez une nouvelle image",
+    "updateLogo": "Mettre à jour le logo",
+    "updating": "Mise à jour...",
+    "logoUpdated": "Logo mis à jour avec succès.",
+    "logoUpdateError": "Erreur lors de la mise à jour du logo.",
+    "selectLogo": "Veuillez sélectionner une image."
+  },
+  "register": {
+    "alreadyHasAssociation": "Vous avez déjà une association enregistrée.",
+    "goToMyProfile": "Accéder à mon profil"
   }
 }

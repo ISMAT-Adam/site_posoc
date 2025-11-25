@@ -1,23 +1,26 @@
 // backend/controllers/memberController.js
 const Member = require('../models/Member');
+const User = require('../models/User');
 
+// ✅ Obtenir tous les membres PUBLICS (uniquement approved)
 exports.getAllMembers = async (req, res) => {
   try {
-    const members = await Member.find().select('-__v');
+    // Par défaut, public = uniquement les approved
+    const members = await Member.find({ status: 'approved' }).select('-__v');
     res.json(members);
   } catch (err) {
     res.status(500).json({ msg: 'Erreur serveur.' });
   }
 };
 
-// À étendre plus tard avec recherche/filtre
+// ✅ Obtenir mon propre profil (membre connecté)
 exports.getMyMember = async (req, res) => {
   try {
-    const user = await require('../models/User').findById(req.user.id).select('associationId');
+    const user = await User.findById(req.user.id).select('associationId');
     if (!user || !user.associationId) {
       return res.status(404).json({ msg: 'Aucune association trouvée.' });
     }
-    const member = await require('../models/Member').findById(user.associationId);
+    const member = await Member.findById(user.associationId);
     if (!member) return res.status(404).json({ msg: 'Profil non trouvé.' });
     res.json(member);
   } catch (err) {
@@ -25,12 +28,13 @@ exports.getMyMember = async (req, res) => {
   }
 };
 
+// ✅ Mettre à jour mon profil (y compris logo via upload séparé)
 exports.updateMyMember = async (req, res) => {
   try {
-    const user = await require('../models/User').findById(req.user.id);
+    const user = await User.findById(req.user.id);
     if (!user || !user.associationId) return res.status(404).json({ msg: 'Association non trouvée.' });
 
-    const updated = await require('../models/Member').findByIdAndUpdate(
+    const updated = await Member.findByIdAndUpdate(
       user.associationId,
       req.body,
       { new: true, runValidators: true }
@@ -41,13 +45,14 @@ exports.updateMyMember = async (req, res) => {
   }
 };
 
+// ✅ Supprimer mon association
 exports.deleteMyMember = async (req, res) => {
   try {
-    const user = await require('../models/User').findById(req.user.id);
+    const user = await User.findById(req.user.id);
     if (!user || !user.associationId) return res.status(404).json({ msg: 'Association non trouvée.' });
 
-    await require('../models/Member').findByIdAndDelete(user.associationId);
-    await require('../models/User').findByIdAndDelete(req.user.id);
+    await Member.findByIdAndDelete(user.associationId);
+    await User.findByIdAndDelete(req.user.id);
 
     res.json({ msg: 'Association supprimée.' });
   } catch (err) {
@@ -55,47 +60,62 @@ exports.deleteMyMember = async (req, res) => {
   }
 };
 
-// Supprimer un membre par ID (réservé à l'admin)
+// ✅ Supprimer un membre par ID (réservé à l'admin)
 exports.deleteMemberById = async (req, res) => {
   try {
     const { id } = req.params;
-
-    exports.getAllMembers = async (req, res) => {
-  try {
-    const { status } = req.query;
-    let filter = {};
-    if (status === 'approved') {
-      filter = { status: 'approved' };
-    }
-    // L’admin peut voir tous les membres, mais le public seulement 'approved'
-    const members = await Member.find(filter).select('-__v');
-    res.json(members);
-  } catch (err) {
-    res.status(500).json({ msg: 'Erreur serveur.' });
-  }
-};
-
-    // 1. Vérifier que le membre existe
     const member = await Member.findById(id);
-    if (!member) {
-      return res.status(404).json({ msg: 'Membre non trouvé.' });
-    }
+    if (!member) return res.status(404).json({ msg: 'Membre non trouvé.' });
 
-    // 2. Trouver l'utilisateur lié à ce membre
-    const User = require('../models/User');
     const user = await User.findOne({ associationId: id });
+    if (user) await User.findByIdAndDelete(user._id);
 
-    // 3. Supprimer l'utilisateur s'il existe
-    if (user) {
-      await User.findByIdAndDelete(user._id);
-    }
-
-    // 4. Supprimer le membre
     await Member.findByIdAndDelete(id);
-
     res.json({ msg: 'Membre supprimé avec succès.' });
   } catch (err) {
     console.error('Erreur dans deleteMemberById:', err);
     res.status(500).json({ msg: 'Erreur serveur lors de la suppression.' });
+  }
+};
+
+// ✅ Obtenir les demandes en attente (admin)
+exports.getPendingMembers = async (req, res) => {
+  try {
+    const members = await Member.find({ status: 'pending' });
+    res.json(members);
+  } catch (err) {
+    res.status(500).json({ msg: 'Erreur serveur lors du chargement des demandes.' });
+  }
+};
+
+// ✅ Approuver un membre (admin)
+exports.approveMember = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const member = await Member.findByIdAndUpdate(
+      id,
+      { status: 'approved' },
+      { new: true }
+    );
+    if (!member) return res.status(404).json({ msg: 'Membre non trouvé.' });
+    res.json(member);
+  } catch (err) {
+    res.status(500).json({ msg: 'Erreur lors de l’approbation.' });
+  }
+};
+
+// ✅ Rejeter un membre (admin)
+exports.rejectMember = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const member = await Member.findByIdAndUpdate(
+      id,
+      { status: 'rejected' },
+      { new: true }
+    );
+    if (!member) return res.status(404).json({ msg: 'Membre non trouvé.' });
+    res.json(member);
+  } catch (err) {
+    res.status(500).json({ msg: 'Erreur lors du rejet.' });
   }
 };
