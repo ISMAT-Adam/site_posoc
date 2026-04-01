@@ -50,7 +50,7 @@ export default function Navbar() {
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
-          <i className="bi bi-list" style={{ fontSize: '1.25rem', color: '#0c0b0bff' }}></i>
+          <i className="bi bi-list" style={{ fontSize: '1.25rem', color: 'rgb(19, 45, 197)' }}></i>
         </button>
 
         <div className="collapse navbar-collapse" id="navbarNav">

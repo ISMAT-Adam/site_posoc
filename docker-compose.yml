@@ -1,0 +1,56 @@
+# docker-compose.yml
+version: '3.8'
+
+services:
+  # Base de données MongoDB (optionnel si tu utilises Atlas)
+  mongo:
+    image: mongo:7
+    container_name: posoc-mongo
+    ports:
+      - "27018:27017"
+    volumes:
+      - mongo_data:/data/db
+    networks:
+      - posoc-network
+
+  # Backend API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: posoc-backend
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/posoc
+      - JWT_SECRET=posoc-secret-key
+      - JWT_EXPIRE=7d
+    volumes:
+      - ./backend/uploads:/app/uploads
+    depends_on:
+      - mongo
+    networks:
+      - posoc-network
+    restart: unless-stopped
+
+  # Frontend React
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: posoc-frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    networks:
+      - posoc-network
+    restart: unless-stopped
+
+volumes:
+  mongo_data:
+
+networks:
+  posoc-network:
+    driver: bridge
